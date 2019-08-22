@@ -1,0 +1,4 @@
+package: github.com/guowenshuai/dingrobot
+import:
+- package: github.com/guowenshuai/simpleMarkDown
+  version: ac4061808c2f37e679ba36360993cedf0a82137a
