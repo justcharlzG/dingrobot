@@ -3,7 +3,6 @@ package message
 
 import (
 	"encoding/json"
-	"strings"
 )
 
 type DingType string
@@ -94,14 +93,13 @@ func (msg TextMessage) SetAtAll(b bool) DingMessage {
 // SetAt 设置告警通知人，注册人的钉钉手机号
 func (msg TextMessage) SetAt(mobiles []string) DingMessage {
 	msg.AtMobiles = mobiles
+	text := ""
 	for i := range mobiles {
-		mobiles[i] = "@"+mobiles[i]
+		text += "@" + mobiles[i] + " "
 	}
-	msg.Content = strings.Join(mobiles, " ") + "\n" + msg.Content
-	// todo
+	msg.Content = text + "\n" + msg.Content
 	return msg
 }
-
 
 func (TextMessage) MessageType() DingType {
 	return MsgText
@@ -132,8 +130,6 @@ type LinkContent struct {
 	PicURL     string `json:"picUrl,omitempty"`
 }
 
-
-
 // ActionCardMessage action
 type ActionCardMessage struct {
 	ActionCardContent `json:"actionCard"`
@@ -151,4 +147,3 @@ type ActionCardContent struct {
 	BtnOrientation string `json:"btnOrientation,omitempty"`
 	HideAvatar     string `json:"hideAvatar,omitempty"`
 }
-
