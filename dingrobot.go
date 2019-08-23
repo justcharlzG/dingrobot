@@ -36,7 +36,6 @@ func NewRobot(webhook string) Roboter {
 // Send send a message which must DingMessage
 func (r *Robot) Send(msg message.DingMessage) error {
 	// generate a request id
-	logrus.SetLevel(logrus.DebugLevel)
 	rid := strconv.Itoa(rand.Int())
 
 	uuid, err := uuid.NewV4()
