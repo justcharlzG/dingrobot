@@ -1,3 +1,8 @@
+/**
+每个机器人每分钟最多发送20条
+消息发送太频繁会严重影响群成员的使用体验，大量发消息的场景 (譬如系统监控报警)
+可以将这些信息进行整合，通过markdown消息以摘要的形式发送到群里
+*/
 package dingrobot
 
 import (
@@ -40,12 +45,10 @@ func (r *Robot) Send(msg message.DingMessage) error {
 	}
 	rid = uuid.String()[:6]
 
-
 	logrus.Infof("[%s] send [%s] Type message to ding", rid, msg.MessageType())
 
-
 	payload := message.Message{
-		MsgType: msg.MessageType(),
+		MsgType:     msg.MessageType(),
 		DingMessage: msg,
 	}
 

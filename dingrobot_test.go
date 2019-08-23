@@ -28,8 +28,8 @@ func TestRobot_Send(t *testing.T) {
 			fields: fields{"https://oapi.dingtalk.com/robot/send?access_token=93839c32719109fb1eac0b2118e471addd964379721941985c3abde6e2607190"},
 			args: args{
 				msg: message.TextMessage{
-					TextContent: message.TextContent{"this is text message"},
-				},
+					TextContent: message.TextContent{"this is text messsage"},
+				}.SetAtAll(),
 			},
 			wantErr: false,
 		},
@@ -61,7 +61,7 @@ func TestRobot_Send(t *testing.T) {
 							String(),
 
 					},
-				},
+				}.SetAt([]string{"18810975701", "17703063443"}),
 			},
 			wantErr: false,
 		},

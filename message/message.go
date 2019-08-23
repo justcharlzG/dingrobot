@@ -1,7 +1,10 @@
 // https://ding-doc.dingtalk.com/doc#/serverapi2/qf2nxq
 package message
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"strings"
+)
 
 type DingType string
 
@@ -16,6 +19,13 @@ const (
 // DingMessage a interface robot message
 type DingMessage interface {
 	MessageType() DingType
+}
+
+// AtMobiles a interface set at , the `@` feature support text and markdown
+type AtMobiles interface {
+	// set mobiles
+	SetAt([]string) DingMessage
+	SetAtAll() DingMessage
 }
 
 // Message send body
@@ -75,6 +85,23 @@ type TextMessage struct {
 	TextContent `json:"text"`
 	At          `json:"at,omitempty"`
 }
+
+func (msg TextMessage) SetAtAll() DingMessage {
+	msg.At.IsAtAll = true
+	return msg
+}
+
+// SetAt 设置告警通知人，注册人的钉钉手机号
+func (msg TextMessage) SetAt(mobiles []string) DingMessage {
+	msg.AtMobiles = mobiles
+	for i := range mobiles {
+		mobiles[i] = "@"+mobiles[i]
+	}
+	msg.Content = strings.Join(mobiles, " ") + "\n" + msg.Content
+	// todo
+	return msg
+}
+
 
 func (TextMessage) MessageType() DingType {
 	return MsgText
