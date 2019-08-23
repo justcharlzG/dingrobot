@@ -29,7 +29,7 @@ func (msg MarkdownMessage) SetAt(mobiles []string) DingMessage {
 }
 
 
-func (msg MarkdownMessage) SetAtAll() DingMessage {
-	msg.At.IsAtAll = true
+func (msg MarkdownMessage) SetAtAll(b bool) DingMessage {
+	msg.At.IsAtAll = b
 	return msg
 }

@@ -29,7 +29,7 @@ func TestRobot_Send(t *testing.T) {
 			args: args{
 				msg: message.TextMessage{
 					TextContent: message.TextContent{"this is text messsage"},
-				}.SetAtAll(),
+				}.SetAtAll(true),
 			},
 			wantErr: false,
 		},

@@ -86,8 +86,8 @@ type TextMessage struct {
 	At          `json:"at,omitempty"`
 }
 
-func (msg TextMessage) SetAtAll() DingMessage {
-	msg.At.IsAtAll = true
+func (msg TextMessage) SetAtAll(b bool) DingMessage {
+	msg.At.IsAtAll = b
 	return msg
 }
 
