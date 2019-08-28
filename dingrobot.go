@@ -7,6 +7,7 @@ package dingrobot
 
 import (
 	"bytes"
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -58,7 +59,11 @@ func (r *Robot) Send(msg message.DingMessage) error {
 	}
 
 	// 发送数据
-	resp, err := http.Post(r.Webhook, "application/json", bytes.NewReader(m))
+	client := http.Client{Transport: &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}}
+
+	resp, err := client.Post(r.Webhook, "application/json", bytes.NewReader(m))
 	if err != nil {
 		logrus.Debugf("[%s] post to ding error: %s", rid, err.Error())
 		return errors.Wrap(err, "post to ding error")
